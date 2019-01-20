@@ -1,0 +1,37 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <link href='//fonts.googleapis.com/css?family=Montserrat:thin,extra-light,light,100,200,300,400,500,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <div class="logout">
+        <a href="#"><i class="fa fa-user" aria-hidden="true"> </i>         @User.Identity.Name </a>
+        <ul class="dropdown">
+            @if (User.IsInRole("1"))
+            {
+                <li><a href="@Url.Action("Inbox", "Message")">Messages</a></li>
+                <li><a href="@Url.Action("UserList", "Admin")">Users</a></li>
+                <li><a href="@Url.Action("Logout", "Auth")">Logout</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Inbox", "Message")">Messages</a></li>
+                <li><a href="@Url.Action("EditProfile", "User")">Edit Profile Details</a></li>
+                <li><a href="@Url.Action("EditCard", "User")">Edit Card Details</a></li>
+                <li><a href="@Url.Action("Logout", "Auth")">Logout</a></li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+
+    <div class="login">
+        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> </a>
+        <ul class="dropdown">
+            <li><a href="@Url.Action("Login", "Auth")">Login</a></li>
+
+            <li><a href="@Url.Action("SignUp", "Auth")">Signup</a></li>
+        </ul>
+
+    </div>
+
+}

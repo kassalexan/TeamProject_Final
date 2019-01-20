@@ -1,0 +1,183 @@
+﻿@model List<TeamProject.Models.User>
+@{
+
+    ViewBag.Title = "User List";
+
+    Layout = "~/Views/Shared/_LayoutMessage.cshtml";
+
+}
+<style>
+    .btn-primary {
+        background-color: #70c745;
+        border-color: #70c745;
+    }
+</style>
+
+<div class="single-hero-post bg-overlay">
+    <!-- Post Image -->
+    <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/1.jpg);"></div>
+    <div class="container">
+        <div class="row"> </div>
+        <div style="margin-top:100px;justify-content:center">
+            <main class="hold-transition skin-blue sidebar-mini">
+                <!--<div class="wrapper">-->
+                <div class="wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header"></section>
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="row">
+                            @*<div class="col-md-3">
+                                    <div class="box box-solid">
+                                    </div>
+                                </div>*@
+                            <!-- /.col -->
+                            <div class="col-sm-3 col-md-12">
+                                <div class="box box-primary " style="align-content:center">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Users</h3>
+                                        <div class="box-tools pull-right">
+                                        </div>
+                                        <!-- /.box-tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+
+                                        <div class="table-responsive mailbox-messages">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Username</th>
+                                                        <th>Name</th>
+                                                        <th>Surname</th>
+                                                        <th>e-mail</th>
+                                                        <th>Mobile</th>
+                                                        <th>District</th>
+                                                        <th>Role</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr class="table-active">
+                                                            <td>@item.Username</td>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.Surname</td>
+                                                            <td>@item.Email</td>
+                                                            <td>@item.Mobile</td>
+                                                            <td>@item.District</td>
+                                                            <td>@item.Role.RoleName</td>
+                                                            <td>
+                                                                <a href="@Url.Action("ChangeRole","Admin")?id=@item.UserId" style="color:black"><b>Change role</b></a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+
+                                            </table>
+                                            <!-- /.table -->
+                                        </div>
+                                        <!-- /.mail-box-messages -->
+                                    </div>
+
+                                </div>
+                                <!-- /. box -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="deleteModal" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h2>Delete message</h2>*@
+            </div>
+            <div id="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                @*<button id="deleteButton" class="btn btn-primary" type="button">Delete</button>
+                    <button id="cancelButton" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    function loadMessage(id) {
+        $('#modal-body').load('@Url.Action("Delete","Message")?id=' + id, function () {
+            $('#deleteModal').show({ show: true });
+        });
+    };
+
+        $(document).ready(function () {
+            $('#deleteButton').click(function () {
+                console.log("Hello");
+                $('#deleteForm').submit();
+                $('#deleteModal').hide();
+            });
+        });
+
+        $('#cancelButton').click(function () {
+            $('#deleteModal').hide();
+        });
+    </script>
+
+}
+
+<!-- Page Script -->
+<script>
+    $(function () {
+        //Enable iCheck plugin for checkboxes
+        //iCheck for checkbox and radio inputs
+        $('.mailbox-messages input[type="checkbox"]').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+
+        //Enable check and uncheck all functionality
+        $(".checkbox-toggle").click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                //Uncheck all checkboxes
+                $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+                $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+            } else {
+                //Check all checkboxes
+                $(".mailbox-messages input[type='checkbox']").iCheck("check");
+                $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            }
+            $(this).data("clicks", !clicks);
+        });
+
+        //Handle starring for glyphicon and font awesome
+        $(".mailbox-star").click(function (e) {
+            e.preventDefault();
+            //detect type
+            var $this = $(this).find("a > i");
+            var glyph = $this.hasClass("glyphicon");
+            var fa = $this.hasClass("fa");
+
+            //Switch states
+            if (glyph) {
+                $this.toggleClass("glyphicon-star");
+                $this.toggleClass("glyphicon-star-empty");
+            }
+
+            if (fa) {
+                $this.toggleClass("fa-star");
+                $this.toggleClass("fa-star-o");
+            }
+        });
+    });
+</script>

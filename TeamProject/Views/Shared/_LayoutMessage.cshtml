@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link href='//fonts.googleapis.com/css?family=Montserrat:thin,extra-light,light,100,200,300,400,500,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <!-- Favicon -->
+    <link rel="icon" href=@Url.Content("/Content/img/core-img/leaf.png")>
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href=@Url.Content("/Content/style.css")>
+    <link rel="stylesheet" href="@Url.Content("/Content/css/custom.css")">
+
+
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href=@Url.Content("/Content/bower_components/bootstrap/dist/css/bootstrap.min.css")>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href=@Url.Content("/Content/bower_components/font-awesome/css/font-awesome.min.css")>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href=@Url.Content("/Content/bower_components/Ionicons/css/ionicons.min.css")>
+    <!-- Theme style -->
+    <link rel="stylesheet" href=@Url.Content("/Content/dist/css/AdminLTE.min.css")>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href=@Url.Content("/Content/dist/css/skins/_all-skins.min.css")>
+    <!-- iCheck -->
+    <link rel="stylesheet" href=@Url.Content("/Content/plugins/iCheck/flat/blue.css")>
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href=@Url.Content("/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css")>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- ***** Navbar Area ***** -->
+        <div class="alazea-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
+
+                        <!-- Nav Brand -->
+                        <a href="@Url.Action("Index","Home")" class="nav-brand"><img src=@Url.Content("/Content/img/core-img/logo1.png") alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Navbar Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                    <li><a href="@Url.Action("Map","Map")">Map</a></li>
+                                    <li><a href="@Url.Action("About","Home")">About</a></li>
+                                    <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                    <!-- Login -->
+                                    <li>@Html.Partial("_LoginPartial")</li>
+                                </ul>
+                            </div>
+                            <!-- Navbar End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div margin="300px">
+        @RenderBody()
+    </div>
+    <!-- jQuery 3 -->
+    <script src=@Url.Content("/Content/bower_components/jquery/dist/jquery.min.js")></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src=@Url.Content("/Content/bower_components/bootstrap/dist/js/bootstrap.min.js")></script>
+    <!-- Slimscroll -->
+    <script src=@Url.Content("/Content/bower_components/jquery-slimscroll/jquery.slimscroll.min.js")></script>
+    <!-- FastClick -->
+    <script src=@Url.Content("/Content/bower_components/fastclick/lib/fastclick.js")></script>
+    <!-- AdminLTE App -->
+    <script src=@Url.Content("/Content/dist/js/adminlte.min.js")></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src=@Url.Content("/Content/dist/js/demo.js")></script>
+    <!-- iCheck -->
+    <script src=@Url.Content("/Content/plugins/iCheck/icheck.min.js")></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src=@Url.Content("/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js")></script>
+
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src=@Url.Content("/Content/js/jquery/jquery-2.2.4.min.js")></script>
+    <!-- Popper js -->
+    <script src=@Url.Content("/Content/js/bootstrap/popper.min.js")></script>
+    <!-- Bootstrap js -->
+    <script src=@Url.Content("/Content/js/bootstrap/bootstrap.min.js")></script>
+    <!-- All Plugins js -->
+    <script src=@Url.Content("/Content/js/plugins/plugins.js")></script>
+    <!-- Active js -->
+    <script src=@Url.Content("/Content/js/active.js")></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

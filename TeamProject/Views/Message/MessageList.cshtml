@@ -1,0 +1,43 @@
+﻿@model List<TeamProject.Models.Message>
+@{
+    ViewBag.Title = "Message List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main role="main">
+    <h2>Message List</h2>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Attachment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Subject</td>
+                        <td>@item.MessageDescription</td>
+                        <td>@item.Date</td>
+                        <td>@item.Sender.Name @item.Sender.Surname</td>
+                        <td>@item.Receiver.Name @item.Receiver.Surname</td>
+                        <td>@item.Attachment</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Message")?id=@item.MessageId">Edit</a> |
+                            <a href="@Url.Action("Delete","Message")?id=@item.MessageId">Delete</a> 
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div><a href="@Url.Action("DownloadAllMessages","Message")">Download all messages</a></div>
+
+    </div>
+</main>
+

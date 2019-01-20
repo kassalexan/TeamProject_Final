@@ -1,0 +1,294 @@
+﻿@model TeamProject.Models.LocationsIdVM
+@{
+    ViewBag.Title = "Map";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+        height: 1000px;
+        width: 100%;
+    }
+
+    #time {
+        font-weight: bold;
+    }
+
+    .breadcrumb-area .top-breadcrumb-area {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 90px;
+    }
+
+    .alazea-btn.active, .alazea-btn:hover, .alazea-btn:focus {
+        font-size: 16px;
+        color: #cc0000;
+        font-weight: 600;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .alazea-btn {
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        min-width: 150px;
+        height: 46px;
+        color: #ffffff;
+        background-color: #cc0000;
+        border: 2px solid #cc0000;
+        border-radius: 2px;
+        padding: 0 20px;
+        font-size: 16px;
+        line-height: 42px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+</style>
+
+
+
+<main>
+    @*<div class="row">*@
+    <div class="breadcrumb-area">
+        <!-- Top Breadcrumb Area -->
+        <div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url(../../Content/img/bg-img/black.png);">
+
+        </div>
+
+    </div>
+
+    <div id="map"></div>
+
+
+    <script>
+        var locations = JSON.parse(@Html.Raw(Json.Encode(Model.Locations)));
+
+        var iconBase = 'http://maps.google.com/mapfiles/ms/icons/';
+
+        var icons = {
+            Available: {
+                icon: iconBase + 'green-dot.png'
+            },
+            NotAvailable: {
+                icon: iconBase + 'red-dot.png'
+            },
+            Reserved: {
+                icon: iconBase + 'orange-dot.png'
+            }
+        };
+
+        var map, infoWindow;
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: locations[@Model.Id].Latitude, lng: locations[@Model.Id].Longtitude
+                },
+                zoom: 15
+            });
+
+            infoWindow = new google.maps.InfoWindow({});
+
+            var id, target, options;
+
+            var marker1 = new google.maps.Marker({
+                map: map,
+                title: 'you are here',
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                }
+            });
+
+            function success(pos) {
+
+                console.log("positiom");
+                var crd = pos.coords;
+
+                var position = {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                };
+
+                marker1.setPosition(position);
+
+
+                var range = 0.0002;
+
+
+                //alert(((target.latitude + range >= crd.latitude) && (crd.latitude >= target.latitude - range)) && ((target.longitude + range >= crd.longitude) && (crd.longitude >= target.longitude - range)));
+
+                if (((target.latitude + range >= crd.latitude) && (crd.latitude >= target.latitude - range)) && ((target.longitude + range >= crd.longitude) && (crd.longitude >= target.longitude - range))) {
+                    navigator.geolocation.clearWatch(id);
+                    window.location.href = "@Url.Action("Parked", "Map")?id=" + locations[@Model.Id].SpotId + "";
+                }
+            }
+
+            function error(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
+            }
+
+            target = {
+                latitude: locations[@Model.Id].Latitude,
+                longitude: locations[@Model.Id].Longtitude
+            };
+
+            options = {
+                enableHighAccuracy: false,
+                timeout: 1000,
+                maximumAge: 0
+            };
+
+            id = navigator.geolocation.watchPosition(success, error, options);
+            //window.setInterval(function () {
+            //    id = navigator.geolocation.watchPosition(success, error, options);
+            //    //console.log("test");
+            //},
+            //    3000 //check every 30 seconds
+            //);
+
+            var marker;
+            var count = 1;
+
+
+                for (count = 0; count < locations.length; count++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[count].Latitude, locations[count].Longtitude),
+                        map: map,
+                        title: locations[count].Street + ' ' + locations[count].Number,
+                        icon: {
+                            url: icons[locations[count].State].icon
+                        }
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                        return function () {
+                            if (locations[count].State == 'Available') {
+                                infoWindow.setContent(locations[count].Street + ' ' + locations[count].Number + '<br> <a href="@Url.Action("ReserveSpot", "Map")?id=' + count + '">Reserve</a>');
+                            } else {
+                                infoWindow.setContent(locations[count].Street + ' ' + locations[count].Number + '<br> <a>This place is ' + locations[count].State + '</a>');
+                            }
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, count));
+                }
+        }
+
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+
+
+        var modal = document.querySelector(".modal");
+        var trigger = document.querySelector(".trigger");
+        var closeButton = document.querySelector(".close-button");
+
+        function toggleModal() {
+            modal.classList.toggle("show-modal");
+        }
+
+        function windowOnClick(event) {
+            if (event.target === modal) {
+                toggleModal();
+            }
+        }
+
+        if (trigger) {
+            trigger.addEventListener("click", toggleModal);
+            closeButton.addEventListener("click", toggleModal);
+            window.addEventListener("click", windowOnClick);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhZIlNxzkoPitqxDnvo63bF0D-WfZ84Vw&callback=initMap"
+            async defer></script>
+    @*</div>*@
+
+    @*<div class="product-img">
+            <div class="product-meta ">
+                <a href="cart.html" >Add to cart</a>
+            </div>
+        </div>*@
+
+</main>
+
+<div id="reserveModal" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <h3 id="modal-title"></h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You have <span id="time">02:00   </span> minutes to park there. The spot will be available to other drivers after that time.
+                    <a id="direction" href="" target="_blank">Get Directions</a>
+                    @*<a href="#">Get directions</a>*@
+                </p>
+            </div>
+            <div class="welcome-btn-group" align="center">
+                <a id="cancelid" href="" class="btn alazea-btn ">Cancel Spot Reservation</a>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        //var locations = JSON.parse(@*@Html.Raw(Json.Encode(Model.Locations))*@);
+        $(window).on('load', function () {
+            $("#modal-title").text("You reserved the spot " + locations[@Model.Id].Street + ' ' + locations[@Model.Id].Number)
+            $("#direction").attr("href", "https://www.google.com/maps?saddr=My+Location&daddr=" + locations[@Model.Id].Street + ' ' + locations[@Model.Id].Number);
+            $("#cancelid").attr("href", "@Url.Action("CanceledReservationMap", "Map")?id=" + locations[@Model.Id].SpotId + "");
+            $('#reserveModal').show({ show: true });
+            var fiveMinutes = 60 * 2,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        });
+
+            $(document).ready(function () {
+                $('#deleteButton').click(function () {
+                    console.log("Hello");
+                    $('#reserveModal').show({ show: true });
+                });
+            });
+
+            $('#map').click(function () {
+                $('#reserveModal').hide();
+            });
+
+            function startTimer(duration, display) {
+                var timer = duration, minutes, seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+
+                    if (minutes == 0 && seconds == 0) {
+                        var url = "@Url.Action("MissedReservationMap", "Map")?id=" + locations[@Model.Id].SpotId + "";
+                        window.location.href = url;
+                    }
+
+                    if (--timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+            }
+    </script>
+}

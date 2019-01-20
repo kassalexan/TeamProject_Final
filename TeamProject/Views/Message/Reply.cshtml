@@ -1,0 +1,148 @@
+﻿
+@model TeamProject.Models.Message
+@{
+    ViewBag.Title = "Reply";
+    Layout = "~/Views/Shared/_LayoutMessage.cshtml";
+    ViewBag.SuccessfulSent = false;
+    //A user can send message only to the site administrator
+}
+
+<style>
+    .btn-primary {
+        background-color: #70c745;
+        border-color: #70c745;
+    }
+</style>
+
+<div class="single-hero-post bg-overlay">
+    <!-- Post Image -->
+    <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/1.jpg);"></div>
+    <div class="container">
+        <div class="row"> </div>
+        <div @*class="row h-100 align-items-center"*@ style="margin-top:100px;justify-content:center">
+            <main class="hold-transition skin-blue ">
+                <div class="wrapper">
+                    <!-- Main content -->
+                    <section class="content">
+
+                        <form id="msform" method="post" action="@Url.Action("SendSubmit","Message")" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a href="@Url.Action("Inbox","Message")">Back to Inbox</a>
+                                    <div class="box box-solid">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Folders</h3>
+                                            <div class="box-tools">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body no-padding">
+                                            <ul class="nav nav-pills nav-stacked">
+                                                <li>
+                                                    <a href="@Url.Action("Inbox","Message")">
+                                                        <i class="fa fa-inbox"></i> Inbox
+                                                    </a>
+                                                </li>
+                                                <li><a href="@Url.Action("Sent","Message")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /. box -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-9">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Reply</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        
+
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                @if (Model.Receiver.Username != "admin")
+                                                {
+                                                    <input class="form-control" placeholder="To: Admin" disabled>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control" placeholder="To: @Model.Sender.Username" disabled>
+                                                }
+
+                                            </div>
+                                            <div class="form-group">
+
+
+                                                <label for="Subject">Subject</label>
+                                                @Html.TextBoxFor(i => i.Subject, new { @class = "form-control", placeholder = "Subject" })
+                                                @Html.ValidationMessageFor(i => i.Subject)
+                                                @* <input class="form-control" placeholder="Subject:">*@
+
+
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                @*
+                                                    <label for="MessageDescription">Message</label>
+                                                    @Html.TextAreaFor(i => i.MessageDescription, new { @class = "form-control", placeholder = "Message text", id = "compose-textarea" })
+                                                    @Html.ValidationMessageFor(i => i.MessageDescription)*@
+                                                <textarea id="compose-textarea" name="MessageDescription" class="form-control" style="height: 300px"></textarea>
+
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn btn-default btn-file">
+
+                                                    <i class="fa fa-paperclip"></i> Attachment
+                                                    @*<label for="File">Attachment</label>*@
+                                                    @*<input type="file" name="File" class="form-control" />*@
+                                                    @Html.TextBoxFor(i => i.File, new { @class = "form-control", type = "file" })
+                                                    @Html.ValidationMessageFor(i => i.File)
+
+                                                </div>
+                                                <p class="help-block">Max. 32MB</p>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                        <div class="box-footer">
+                                            <div class="pull-right">
+
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+                                                @* <button type="button" onclick="@("window.location.href='" + Url.Action("UserIndex", "Message") + "'")">Cancel</button>*@
+                                            </div>
+                                        </div>
+                                        <!-- /.box-footer -->
+                                    </div>
+                                    <!-- /. box -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </form>
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <div>
+                    @if (@ViewBag.SuccessfulSent)
+                    {
+                        @ViewBag.SendResult
+                    }
+                </div>
+            </main>
+            <script>
+                $(function () {
+                    //Add text editor
+                    $("#compose-textarea").wysihtml5();
+                });
+            </script>
+
+        </div>
+    </div>
+</div>
+
+
+

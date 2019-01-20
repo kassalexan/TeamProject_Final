@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "User message administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<h2>User message administration</h2>*@
+<div class="single-hero-post bg-overlay">
+    <!-- Post Image -->
+    <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/4.jpg);"></div>
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <!-- Post Content -->
+                <div class="hero-slides-content text-center">
+                    <form action="#" method="post">
+                        <div class="section-heading">
+                            <div class="widget-title">
+                                <p style="font-size:180%;">What would you like to do</p>
+                            </div>
+                            <div class="contact-information">
+                                <p style="font-size:160%;">
+                                    <a href="@Url.Action("Inbox","Message")">View Inbox</a>
+                                </p>
+                                <p style="font-size:160%;">
+                                    <a href="@Url.Action("Sent","Message")">View Sent Messages</a>
+                                </p>
+                                <p style="font-size:160%;">
+                                    <a href="@Url.Action("Send","Message")">Send a new message</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

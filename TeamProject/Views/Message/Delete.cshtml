@@ -1,0 +1,33 @@
+﻿@model TeamProject.Models.Message
+@{
+    Layout = null;
+}
+
+<main role="main">
+    <h2>Delete the message</h2>
+    <form method="post" id="deleteForm" action="@Url.Action("DeleteSubmit","Message")">
+        <input type="hidden" value="@Model.MessageId" name="MessageId" />
+        <div class="form-row">
+            <div>
+                <label for="Subject">Subject</label>
+                <input readonly type="text" class="form-control" id="Subject" name="Subject" placeholder="Subject" value="@Model.Subject">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="MessageDescription">Message</label>
+                <input readonly type="text" class="form-control" id="MessageDescription" name="MessageDescription" placeholder="Message text" value="@Model.MessageDescription">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="Attachment">Attachment</label>
+                <input readonly type="text" class="form-control" id="Attachment" name="Attachment" placeholder="File name" value="@Model.Attachment">
+            </div>
+        </div>
+
+        <button type="submit">Delete</button>
+        <button type="button" onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")">Cancel</button>
+    </form>
+</main>
+

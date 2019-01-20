@@ -1,0 +1,44 @@
+﻿@model TeamProject.Models.Message
+@{
+    ViewBag.Title = "AdminSend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SuccesfulSent = false;
+}
+
+<main role="main">
+    <h2>Send a new message</h2>
+    <form method="post" action="@Url.Action("AdminSendSubmit","Message")" enctype="multipart/form-data">
+        <div class="form-row">
+            <div>
+                <label for="Subject">Subject</label>
+                @Html.TextBoxFor(i => i.Subject, new { @class = "form-control", placeholder = "Subject" })
+                @Html.ValidationMessageFor(i => i.Subject)
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="MessageDescription">Message</label>
+                @Html.TextBoxFor(i => i.MessageDescription, new { @class = "form-control", placeholder = "Message text" })
+                @Html.ValidationMessageFor(i => i.MessageDescription)
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="File">Attachment</label>
+                @Html.TextBoxFor(i => i.File, new { @class = "form-control", type="file" })
+                @Html.ValidationMessageFor(i => i.File)
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="Receiver.Username">Receiver</label>
+                @Html.TextBoxFor(i => i.Receiver.Username, new { @class = "form-control", placeholder = "Receiver username" })
+                @Html.ValidationMessageFor(i => i.Attachment)
+            </div>
+        </div>
+
+        <button type="submit">Send</button>
+        <button type="button" onclick="@("window.location.href='" + Url.Action("Index", "Home") + "'")">Cancel</button>
+    </form>
+</main>
+

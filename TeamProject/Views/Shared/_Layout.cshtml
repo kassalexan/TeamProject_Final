@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='//fonts.googleapis.com/css?family=Montserrat:thin,extra-light,light,100,200,300,400,500,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>Find Your Spot | &amp; Homee</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href=@Url.Content("/Content/img/core-img/leaf.png")>
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href=@Url.Content("/Content/style.css")>
+
+    <link rel="stylesheet" href="@Url.Content("/Content/css/custom.css")">
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img">
+            <img src=@Url.Content("/Content/img/core-img/leaf.png") alt="">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- ***** Navbar Area ***** -->
+        <div class="alazea-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
+
+                        <!-- Nav Brand -->
+                        <a href="@Url.Action("Index","Home")" class="nav-brand"><img src=@Url.Content("/Content/img/core-img/logo1.png") alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Navbar Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                    <li><a href="@Url.Action("Map","Map")">Map</a></li>
+                                    <li><a href="@Url.Action("About","Home")">About</a></li>
+                                    <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                    <!-- Login -->
+                                    <li>@Html.Partial("_LoginPartial")</li>
+                                </ul>
+                            </div>
+                            <!-- Navbar End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- ##### Header Area End ##### -->
+    <!-- ##### Hero Area Start ##### -->
+    <div>
+        @RenderBody()
+    </div>
+    <!-- ##### Hero Area End ##### -->
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area bg-img" style="background-image: url(../../Content/img/bg-img/100.jpg" )>
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-6" align="left">
+                        <div class="single-footer-widget">
+                            <div class="footer-logo mb-30">
+                                <a href="@Url.Action("Index","Home")"><img src=@Url.Content("/Content/img/core-img/logo1.png") alt=""></a>
+                            </div>
+                            <p>Find us on social media</p>
+                            <div class="social-info">
+                                <a href="http://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="http://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="http://google.com"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a href="http://linkdin.com"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-6" align="right">
+                        <div class="single-footer-widget">
+                            <div class="widget-title">
+                                <h5>CONTACT</h5>
+                            </div>
+
+                            <div class="contact-information">
+                                <p><span>Address:</span> Panepistimiou 39, Athens</p>
+                                <p><span>Phone:</span> +1 234 122 122</p>
+                                <p><span>Email:</span> info.findyourspot@gmail.com</p>
+                                <p><span>Open hours:</span> Mon - Sun: 8 AM to 9 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Area -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="border-line"></div>
+                    </div>
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="copywrite-text">
+                            <p>
+                                &copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made by us
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src=@Url.Content("/Content/js/jquery/jquery-2.2.4.min.js")></script>
+    <!-- Popper js -->
+    <script src=@Url.Content("/Content/js/bootstrap/popper.min.js")></script>
+    <!-- Bootstrap js -->
+    <script src=@Url.Content("/Content/js/bootstrap/bootstrap.min.js")></script>
+    <!-- All Plugins js -->
+    <script src=@Url.Content("/Content/js/plugins/plugins.js")></script>
+    <!-- Active js -->
+    <script src=@Url.Content("/Content/js/active.js")></script>
+
+
+
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
+</html>

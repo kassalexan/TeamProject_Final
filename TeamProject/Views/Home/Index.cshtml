@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .single-hero-post .hero-slides-content {
+        position: relative;
+        z-index: 1;
+        margin-top: 30px;
+    }
+</style>
+
+<section class="hero-area">
+    <div class="hero-post-slides owl-carousel">
+
+        <!-- Single Hero Post -->
+        <div class="single-hero-post bg-overlay">
+            <!-- Post Image -->
+            <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/1.jpg);"></div>
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12">
+                        <!-- Post Content -->
+                        <div class="hero-slides-content text-center">
+                            <h2>Find Your Spot</h2>
+                            <p>A parking space anytime, anyplace! <br> Choose one of the hundreds spots we have available for you to park your car or motocycle. Save time and money.</p>
+                            <div class="welcome-btn-group">
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <a href="@Url.Action("Login","Auth")" class="btn alazea-btn mr-30">GO</a>
+                                }
+                                else if (User.Identity.Name == "admin")
+                                {
+                                    <a href="@Url.Action("","")" class="btn alazea-btn mr-30">GO</a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Map","Map")" class="btn alazea-btn mr-30">GO</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Post -->
+        <div class="single-hero-post bg-overlay">
+            <!-- Post Image -->
+            <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/2.jpg);"></div>
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12">
+                        <!-- Post Content -->
+                        <div class="hero-slides-content text-center">
+                            <h2>Find Your Spot</h2>
+                            <p>A parking space anytime, anyplace! <br> Choose one of the hundreds spots we have available for you to park your car or motocycle. Save time and money..</p>
+                            <div class="welcome-btn-group">
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <a href="@Url.Action("Login","Auth")" class="btn alazea-btn mr-30">GO</a>
+                                }
+                                else if (User.Identity.Name == "admin")
+                                {
+                                    <a href="@Url.Action("","")" class="btn alazea-btn mr-30">GO</a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Map","Map")" class="btn alazea-btn mr-30">GO</a>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,259 @@
+﻿@model LoginVM
+@using TeamProject.Models
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.username_password_OK = false;
+}
+
+<style>
+    /*basic reset*/
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        height: 100%;
+        /*Image only BG fallback*/
+        /*background = gradient + image pattern combo*/
+        background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+    }
+
+    body {
+        font-family: montserrat, arial, verdana;
+    }
+    /*form styles*/
+
+
+    #msform {
+        width: 400px;
+        margin: 50px auto;
+        /*text-align: center;*/
+        position: relative;
+    }
+
+        #msform fieldset {
+            background: white;
+            border: 0 none;
+            border-radius: 3px;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+            padding: 20px 30px;
+            box-sizing: border-box;
+            width: 80%;
+            margin: 0 10%;
+            /*stacking fieldsets above each other*/
+            position: relative;
+        }
+            /*Hide all except first fieldset*/
+            #msform fieldset:not(:first-of-type) {
+                display: none;
+            }
+        /*inputs*/
+        #msform input, #msform textarea {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: montserrat;
+            color: #2C3E50;
+            font-size: 13px;
+        }
+        /*buttons*/
+        #msform .action-button {
+            width: 100px;
+            background: #27AE60;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 1px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+            #msform .action-button:hover, #msform .action-button:focus {
+                box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+            }
+    /*headings*/
+    .fs-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #2C3E50;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .fs-subtitle {
+        font-weight: normal;
+        font-size: px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .message {
+        margin: 0px 0 0;
+        color: #b3b3b3;
+        font-size: 12px;
+    }
+
+        .message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+    .single-hero-post .hero-slides-content p {
+        color: #b3b3b3;
+        margin: 15px 0 0;
+        font-size: 12px;
+    }
+
+    a, a:hover, a:focus {
+        -webkit-transition-duration: 500ms;
+        transition-duration: 500ms;
+        text-decoration: none;
+        outline: 0 solid transparent;
+        color: #303030;
+        font-weight: 500;
+        font-size: 11px;
+    }
+
+    .fs-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .label-checkbox100 {
+        font-family: Raleway-Regular;
+        font-size: 13px;
+        color: #999999;
+        line-height: 1.4;
+        display: block;
+        position: relative;
+        padding-left: 26px;
+        cursor: pointer;
+    }
+
+        .label-checkbox100::before {
+            content: "\f00c";
+            font-family: FontAwesome;
+            font-size: 13px;
+            color: transparent;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 2px;
+            background: #fff;
+            border: 1px solid #e6e6e6;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+    #msform input[type=checkbox]:checked {
+        color: #57b846;
+    }
+
+    #loginbtn {
+        text-align: center;
+    }
+
+    #msform input[type=checkbox] {
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        width: 10%;
+        box-sizing: border-box;
+        font-family: montserrat;
+        color: #2C3E50;
+        font-size: 12px;
+    }
+
+        #msform input[type=checkbox]:checked + label {
+            color: #4CAF50;
+        }
+
+    .text-danger {
+        color: #dc3545 !important;
+        font-size: 10px;
+    }
+</style>
+
+@*<div class="single-hero-post bg-overlay">
+        <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/1.jpg);"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">=
+                    <div class="hero-slides-content text-center">
+                        <form id="msform">
+                            <fieldset>
+                                <input type="text" name="username" placeholder="Username" />
+                                <input type="password" name="pass" placeholder="Password" />
+                                <p class="message" style=""> <a href="#">Forgot Password?</a></p>
+                                <input type="submit" name="submit" class="submit action-button" value="Login" />
+                                <p class="message" style="">Not registered? <a href="#">Create an account</a></p>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="single-hero-post bg-overlay">
+    <!-- Post Image -->
+    <div class="slide-img bg-img" style="background-image: url(../../Content/img/bg-img/1.jpg);"></div>
+    <div class="container">
+        <div class="row"> </div>
+        <div class="row h-100 align-items-center" style="margin-top:100px;justify-content:center">
+            <div class="row justify-content-between">
+                <form id="msform" method="post" action="@Url.Action("Login","Auth")">
+                    
+                    <h2 class="fs-title">Login</h2>
+                    <fieldset>
+                        @Html.ValidationMessage("InvalidUserNameOrPassword", "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(i => i.Username, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(i => i.Username, new { @placeholder = "Username", id = "username" })
+
+                        @Html.ValidationMessageFor(i => i.Password, "", new { @class = "text-danger" })
+                        @Html.PasswordFor(i => i.Password, new { @placeholder = "Password" })
+
+                        @Html.CheckBoxFor(i => i.RememberMe, new { @id = "ckb", type = "checkbox", name = "remember-me" })
+                        <label class="message" for="ckb">
+                            Remember me
+                        </label>
+                        @*@Html.LabelFor(i => i.RememberMe, new { @class = "message"})*@
+                        @*<input class="input-checkbox100" id="ckb1" type="checkbox" name="RememberMe">
+        <label id="test" class="message" for="ckb1">
+            Remember me
+        </label>*@
+                        <p class="message" style="text-align:right"><a href="#" style="text-align:right">Forgot Password?</a></p>
+                        <div id="loginbtn">
+                            <input type="submit" name="submit" class="submit action-button" value="Login" />
+                        </div>
+                        <p class="message" style="text-align:center">Not registered? <a href="@Url.Action("SignUp","Auth")">Create an account</a></p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
