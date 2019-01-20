@@ -1,0 +1,18 @@
+﻿.label-red {
+    font-size: 30px;
+    color: #70c745;
+}
+
+.custom-control-label {
+    font-size: 20px;
+    color: #70c745;
+}
+
+.map-test {
+    background-color: black;
+}
+
+.white-text {
+    color:#ffffff;
+    font-weight: bold;
+}
